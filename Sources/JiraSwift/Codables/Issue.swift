@@ -127,6 +127,7 @@ public struct WorkLog: Codable {
     
     public var startAt: Int
     public var maxResults: Int
+    public var total: Int
     public var worklogs: [WorklogItem]
     
 }
@@ -136,6 +137,7 @@ public struct WorklogItem: Codable {
     public var author: Author
     public var timeSpent: String
     public var timeSpentSeconds: Int
+    public var comment: String?
     
 }
 
