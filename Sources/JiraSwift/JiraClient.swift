@@ -42,6 +42,15 @@ public class JiraClient: APIClient {
 
         initialize()
     }
+    
+    public init(baseURL: URL, username: String, token: String) {
+        let base64Auth = "\(username):\(token)".data(using: .utf8)?.base64EncodedString() ?? ""
+        authorizationValue = "Basic \(base64Auth)"
+
+        super.init(baseURL: baseURL)
+
+        initialize()
+    }
 
     private func initialize() {
         (handler as? DefaultAPIRouteHandler)?.encoder.dateEncodingStrategy = .formatted(JiraClient.dateFormatter)

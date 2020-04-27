@@ -14,7 +14,7 @@ class ProjectRoutesTests: JiraSwiftTest {
 
     func testProjectList() throws {
         let jiraClient = jiraFromEnvironment()
-        let projects = try jiraClient.proqject.list().wait()
+        let projects = try jiraClient.project.list().wait()
         XCTAssertGreaterThan(projects.count, 1)
     }
 
