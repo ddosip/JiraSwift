@@ -53,6 +53,7 @@ public struct SearchRequest: Codable {
         case versions
         case fixVersions
         case priority
+        case worklog
 
     }
 

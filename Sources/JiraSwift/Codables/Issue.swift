@@ -41,6 +41,7 @@ public struct Fields: Codable {
     public var versions: [Version]?
     public var fixVersions: [Version]?
     public var priority: Priority?
+    public var worklog: WorkLog?
 
 }
 
@@ -120,4 +121,26 @@ public struct Priority: Codable {
     public var name: String
     public var iconUrl: String
 
+}
+
+public struct WorkLog: Codable {
+    
+    public var startAt: Int
+    public var maxResults: Int
+    public var worklogs: [WorklogItem]
+    
+}
+
+public struct WorklogItem: Codable {
+    
+    public var author: Author
+    public var timeSpent: String
+    public var timeSpentSeconds: Int
+    
+}
+
+public struct Author: Codable {
+    
+    public var accountId: String
+    
 }
