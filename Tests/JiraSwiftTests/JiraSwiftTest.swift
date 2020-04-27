@@ -13,33 +13,21 @@ import JiraSwift
 class JiraSwiftTest: XCTestCase  {
 
     func jiraCredentialsFromEnvironment() -> (URL, String, String) {
-        guard let jiraUsername = ProcessInfo.processInfo.environment["JIRA_USERNAME"],
-            let jiraPassword = ProcessInfo.processInfo.environment["JIRA_PASSWORD"],
-            let urlString = ProcessInfo.processInfo.environment["JIRA_URL"],
+        guard let urlString = ProcessInfo.processInfo.environment["JIRA_URL"],
+            let jiraUsername = ProcessInfo.processInfo.environment["JIRA_USERNAME"],
+            let jiraToken = ProcessInfo.processInfo.environment["JIRA_OAUTH_TOKEN"],
             let jiraURL = URL(string: urlString)
         else {
             fatalError()
         }
 
-        return (jiraURL, jiraUsername, jiraPassword)
-    }
-
-    func jiraOAuthTokenFromEnvironment() -> (URL, String) {
-        guard let urlString = ProcessInfo.processInfo.environment["JIRA_URL"],
-            let jiraURL = URL(string: urlString),
-            let oAuthToken = ProcessInfo.processInfo.environment["JIRA_OAUTH_TOKEN"]
-        else {
-            fatalError()
-        }
-
-        return (jiraURL, oAuthToken)
+        return (jiraURL, jiraUsername, jiraToken)
     }
 
     func jiraFromEnvironment() -> JiraClient {
         let credentials = jiraCredentialsFromEnvironment()
-        return JiraClient(baseURL: credentials.0, username: credentials.1, password: credentials.2)
-//        let credentials = jiraOAuthTokenFromEnvironment()
-//        return JiraClient(baseURL: credentials.0, token: credentials.1)
+        return JiraClient(baseURL: credentials.0, username: credentials.1, token: credentials.2)
+
     }
 
 }
