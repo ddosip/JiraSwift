@@ -137,6 +137,7 @@ public struct Worklog: Codable {
     public var author: Author
     public var timeSpent: String
     public var timeSpentSeconds: Int
+    public var created: String
     public var comment: String?
     
 }
