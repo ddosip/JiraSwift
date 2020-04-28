@@ -41,7 +41,7 @@ public struct Fields: Codable {
     public var versions: [Version]?
     public var fixVersions: [Version]?
     public var priority: Priority?
-    public var worklog: WorkLog?
+    public var worklog: PageOfWorklogs?
 
 }
 
@@ -123,16 +123,16 @@ public struct Priority: Codable {
 
 }
 
-public struct WorkLog: Codable {
+public struct PageOfWorklogs: Codable {
     
     public var startAt: Int
     public var maxResults: Int
     public var total: Int
-    public var worklogs: [WorklogItem]
+    public var worklogs: [Worklog]
     
 }
 
-public struct WorklogItem: Codable {
+public struct Worklog: Codable {
     
     public var author: Author
     public var timeSpent: String
