@@ -137,8 +137,43 @@ public struct Worklog: Codable {
     public var author: Author
     public var timeSpent: String
     public var timeSpentSeconds: Int
-    public var created: String
+    public var created: Date
+    public var started: Date
+    public var updated: Date
     public var comment: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case author, timeSpent, timeSpentSeconds, created, started, updated, comment
+    }
+}
+
+extension Worklog {
+    public init(from decoder: Decoder) throws {
+        let unixDateFormatter = DateFormatter()
+        unixDateFormatter.locale = Locale(identifier: "ru_RU_POSIX")
+        unixDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        unixDateFormatter.timeZone = TimeZone(identifier: "Europe/Moscow")
+        
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let created = try values.decode(String.self, forKey: .created)
+        let started = try values.decode(String.self, forKey: .started)
+        let updated = try values.decode(String.self, forKey: .updated)
+        
+        self.created = unixDateFormatter.date(from: created)!
+        self.started = unixDateFormatter.date(from: started)!
+        self.updated = unixDateFormatter.date(from: updated)!
+        
+        self.author = try values.decode(Author.self, forKey: .author)
+        self.timeSpent = try values.decode(String.self, forKey: .timeSpent)
+        self.timeSpentSeconds = try values.decode(Int.self, forKey: .timeSpentSeconds)
+        self.comment = try? values.decode(String.self, forKey: .comment)
+        
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        assertionFailure()
+    }
     
 }
 
